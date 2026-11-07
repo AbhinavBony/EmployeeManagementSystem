@@ -117,8 +117,6 @@ class DepartmentServiceImplTest_Mockito {
     }
     @Test
     void updateDepartment_shouldThrow_whenDepartmentNotFound(){
-        when(depRepo.findById(999)).thenReturn(Optional.empty());
-
         assertThrows(DepartmentNotFound.class, ()-> departmentService.updateDepartment(999, requestDTO));
         verify(depRepo, never()).existsByDepartmentIgnoreCaseAndIdNot(any(), any());
         verify(depRepo, never()).save(any());
@@ -133,7 +131,6 @@ class DepartmentServiceImplTest_Mockito {
     }
     @Test
     void deleteDepartment_shouldThrow_whenIdNotFound(){
-        when(depRepo.existsById(999)).thenReturn(false);
         assertThrows(DepartmentNotFound.class, ()-> departmentService.deleteDepartment(999));
         verify(depRepo, never()).deleteById(any());
     }
